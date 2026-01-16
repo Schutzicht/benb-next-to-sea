@@ -2,7 +2,7 @@
 import { getLangFromUrl } from "../i18n/utils";
 import Navbar from "../components/common/Navbar.astro";
 import Footer from "../components/common/Footer.astro";
-import BirdsBackground from "../components/ui/BirdsBackground.astro";
+
 import { ClientRouter } from 'astro:transitions';
 import "../styles/global.css";
 
@@ -30,7 +30,7 @@ const lang = getLangFromUrl(Astro.url);
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 	</head>
 	<body class="font-body bg-stone-50 text-stone-800 antialiased flex flex-col min-h-screen relative">
-		<BirdsBackground />
+
 		<Navbar />
 		<main class="flex-grow z-10 relative">
 			<slot />
