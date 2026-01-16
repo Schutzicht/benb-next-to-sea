@@ -17,9 +17,9 @@ export function getStaticPaths() {
 const { lang } = Astro.params;
 
 const title = {
-  nl: "Next to Sea - Luxury Stay",
-  en: "Next to Sea - Luxury Stay",
-  de: "Next to Sea - Luxusaufenthalt"
+  nl: "Pension Marijke - Vlissingen",
+  en: "Pension Marijke - Vlissingen",
+  de: "Pension Marijke - Vlissingen"
 };
 ---
 
@@ -46,8 +46,8 @@ const title = {
                         />
                         <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                         <div class="absolute bottom-8 left-8 text-white">
-                            <div class="font-heading text-3xl">Sabine</div>
-                            <div class="text-sm uppercase tracking-widest opacity-80">{lang === 'nl' ? 'Uw Gastvrouw' : 'Your Host'}</div>
+                            <div class="font-heading text-3xl">Pension Marijke</div>
+                            <div class="text-sm uppercase tracking-widest opacity-80">{lang === 'nl' ? 'Familie Pension' : (lang === 'de' ? 'Familienpension' : 'Family Pension')}</div>
                         </div>
                     </div>
                 </ScrollReveal>
@@ -62,9 +62,9 @@ const title = {
                         {lang === 'nl' ? 'Welkom in Vlissingen' : lang === 'de' ? 'Willkommen in Vlissingen' : 'Welcome to Vlissingen'}
                     </h2>
                     <p class="text-xl text-stone-600 font-light leading-relaxed mb-8 italic">
-                        "{lang === 'nl' ? 'Ik zorg er persoonlijk voor dat het u aan niets ontbreekt. Met mijn liefde voor Vlissingen geef ik u graag de beste tips voor een onvergetelijk verblijf aan zee.' : 
-                        lang === 'de' ? 'Ich sorge persönlich dafür, dass es Ihnen an nichts fehlt. Mit meiner Liebe zu Vlissingen gebe ich Ihnen gerne die besten Tipps für einen unvergesslichen Aufenthalt am Meer.' : 
-                        'I personally ensure that you have everything you need. With my love for Vlissingen, I am happy to give you the best tips for an unforgettable stay by the sea.'}"
+                        "{lang === 'nl' ? 'Wij zorgen er persoonlijk voor dat het u aan niets ontbreekt. Met onze liefde voor Vlissingen geven wij u graag de beste tips voor een onvergetelijk verblijf aan zee.' : 
+                        lang === 'de' ? 'Wir sorgen persönlich dafür, dass es Ihnen an nichts fehlt. Mit unserer Liebe zu Vlissingen geben wir Ihnen gerne die besten Tipps für einen unvergesslichen Aufenthalt am Meer.' : 
+                        'We personally ensure that you have everything you need. With our love for Vlissingen, we are happy to give you the best tips for an unforgettable stay by the sea.'}"
                     </p>
                     <div class="w-24 h-[1px] bg-sea-blue/30"></div>
                 </ScrollReveal>
