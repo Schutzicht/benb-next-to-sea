@@ -74,43 +74,44 @@ const currentNav = navItems[lang] || navItems.nl;
     </div>
   </div>
 
-  <!-- Mobile Menu Overlay -->
-  <div 
-    id="mobile-menu"
-    class="fixed inset-0 bg-white/95 backdrop-blur-xl z-40 transform translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col justify-center items-center space-y-8"
-  >
-    <div class="absolute top-0 right-0 p-6 pt-5 pr-6">
-         <button 
-          id="close-menu-btn"
-          type="button" 
-          class="text-sea-blue hover:text-sky-700 p-2 focus:outline-none"
-        >
-          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-    </div>
-
-    <!-- Mobile Nav Links -->
-    <div class="flex flex-col space-y-6 text-center">
-      {currentNav.map((item) => (
-        <a
-          href={item.href}
-          class="text-2xl font-bold text-slate-800 hover:text-sea-blue transition-colors duration-200"
-        >
-          {item.name}
-        </a>
-      ))}
-    </div>
-
-    <!-- Mobile Language Selector -->
-    <div class="flex items-center space-x-6 pt-8 border-t border-gray-100 mt-8">
-        <a href="/nl" class={`text-lg font-semibold transition-colors ${lang === 'nl' ? 'text-sea-blue' : 'text-slate-400'}`}>NL</a>
-        <a href="/en" class={`text-lg font-semibold transition-colors ${lang === 'en' ? 'text-sea-blue' : 'text-slate-400'}`}>EN</a>
-        <a href="/de" class={`text-lg font-semibold transition-colors ${lang === 'de' ? 'text-sea-blue' : 'text-slate-400'}`}>DE</a>
-    </div>
-  </div>
 </nav>
+
+<!-- Mobile Menu Overlay - Move outside nav to avoid backdrop-blur containment context -->
+<div 
+  id="mobile-menu"
+  class="fixed inset-0 bg-white z-[60] transform translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col justify-center items-center space-y-8"
+>
+  <div class="absolute top-0 right-0 p-6 pt-5 pr-6">
+       <button 
+        id="close-menu-btn"
+        type="button" 
+        class="text-sea-blue hover:text-sky-700 p-2 focus:outline-none"
+      >
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+  </div>
+
+  <!-- Mobile Nav Links -->
+  <div class="flex flex-col space-y-6 text-center">
+    {currentNav.map((item) => (
+      <a
+        href={item.href}
+        class="text-3xl font-heading font-light text-slate-800 hover:text-sea-blue transition-colors duration-200"
+      >
+        {item.name}
+      </a>
+    ))}
+  </div>
+
+  <!-- Mobile Language Selector -->
+  <div class="flex items-center space-x-8 pt-8 border-t border-gray-100 mt-8 w-64 justify-center">
+      <a href="/nl" class={`text-xl font-heading font-light transition-colors ${lang === 'nl' ? 'text-sea-blue' : 'text-slate-400'}`}>NL</a>
+      <a href="/en" class={`text-xl font-heading font-light transition-colors ${lang === 'en' ? 'text-sea-blue' : 'text-slate-400'}`}>EN</a>
+      <a href="/de" class={`text-xl font-heading font-light transition-colors ${lang === 'de' ? 'text-sea-blue' : 'text-slate-400'}`}>DE</a>
+  </div>
+</div>
 
 <script>
   const menuBtn = document.getElementById('mobile-menu-btn');
