@@ -1,0 +1,48 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  height?: string;
+  class?: string;
+  priority?: boolean;
+}
+
+const { src, alt, height = 'h-96', class: className = '', priority = false } = Astro.props;
+---
+
+<div class:list={['parallax-container overflow-hidden relative', height, className]}>
+  <img 
+    src={src} 
+    alt={alt} 
+    class="parallax-img absolute inset-0 w-full h-[120%] object-cover -translate-y-10"
+    loading={priority ? "eager" : "lazy"}
+  />
+  <div class="absolute inset-0 bg-stone-900/10 pointer-events-none mix-blend-multiply"></div>
+</div>
+
+<script>
+  import { scroll, animate } from "motion";
+
+  document.addEventListener('astro:page-load', () => {
+    initParallax();
+  });
+
+  // Initial load
+  initParallax();
+
+  function initParallax() {
+    const containers = document.querySelectorAll('.parallax-container');
+    
+    containers.forEach(container => {
+      const img = container.querySelector('.parallax-img');
+      if (img) {
+        // Simple parallax: move image slightly slower than scroll
+        // The image is taller (120%), so we move it from -10% to 10% or similar scale
+        scroll(
+          animate(img, { transform: ['translateY(0%)', 'translateY(-20%)'] }),
+          { target: container, offset: ["start end", "end start"] }
+        );
+      }
+    });
+  }
+</script>

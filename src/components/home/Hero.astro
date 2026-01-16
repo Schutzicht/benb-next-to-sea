@@ -1,0 +1,84 @@
+---
+import ScrollReveal from '../ui/ScrollReveal.astro';
+
+const { lang } = Astro.props;
+
+const content = {
+  nl: {
+    subtitle: "Luxe appartement aan de Zeeuwse kust",
+    cta: "Bekijk beschikbaarheid"
+  },
+  en: {
+    subtitle: "Luxury apartment on the Zeeland coast",
+    cta: "Check availability"
+  },
+  de: {
+    subtitle: "Luxusapartment an der Küste Zeelands",
+    cta: "Verfügbarkeit prüfen"
+  }
+};
+
+const t = content[lang] || content.nl;
+---
+
+<section class="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden">
+  
+  <div class="absolute inset-0 z-0">
+    <img 
+      src="/images/vlissingen-hero-new.jpg" 
+      alt="Vlissingen Skyline" 
+      class="w-full h-full object-cover animate-scale-slow"
+    />
+    <div class="absolute inset-0 bg-stone-900/30"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-20">
+    
+    <ScrollReveal animation="fade-up" duration={1.2} delay={0.2}>
+        <p class="text-white/90 text-sm md:text-base uppercase tracking-[0.3em] mb-6 font-medium">
+            Vlissingen, Zeeland
+        </p>
+    </ScrollReveal>
+
+    <ScrollReveal animation="fade-up" duration={1.5} delay={0.4}>
+        <h1 class="text-6xl md:text-8xl lg:text-9xl text-white font-heading font-light tracking-tight leading-none mb-8 drop-shadow-sm">
+            Next to Sea
+        </h1>
+    </ScrollReveal>
+
+    <ScrollReveal animation="fade-up" duration={1.2} delay={0.8}>
+        <div class="w-16 h-[1px] bg-white/60 mx-auto mb-8"></div>
+        <p class="text-white/90 text-lg md:text-xl font-light tracking-wide max-w-xl mx-auto mb-12">
+            {t.subtitle}
+        </p>
+    </ScrollReveal>
+
+    <ScrollReveal animation="fade-up" duration={1} delay={1.1}>
+        <a 
+            href={`/${lang}/contact`} 
+            class="group inline-block px-8 py-4 bg-white text-sea-blue border border-transparent hover:border-white/30 hover:bg-white/10 hover:text-white hover:backdrop-blur-sm font-medium uppercase tracking-widest text-xs transition-all duration-500 rounded-full"
+        >
+            {t.cta}
+        </a>
+    </ScrollReveal>
+
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 hidden md:block">
+     <div class="w-[1px] h-24 bg-gradient-to-b from-white to-transparent opacity-50"></div>
+  </div>
+
+</section>
+
+<style>
+    /* Slow Ken Burns Effect */
+    @keyframes scale-slow {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.1); }
+    }
+    .animate-scale-slow {
+        animation: scale-slow 20s linear infinite alternate;
+    }
+</style>

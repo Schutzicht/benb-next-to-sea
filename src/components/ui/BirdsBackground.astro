@@ -1,0 +1,86 @@
+---
+---
+<div class="birds-container pointer-events-none fixed inset-0 z-30 overflow-hidden" aria-hidden="true">
+    <div class="bird bird-1" data-speed="0.5"></div>
+    <div class="bird bird-2" data-speed="0.2"></div>
+    <div class="bird bird-3" data-speed="0.8"></div>
+</div>
+
+<style>
+    .birds-container {
+        pointer-events: none;
+        z-index: 30;
+    }
+
+    .bird {
+        position: absolute;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23334155' opacity='0.6'%3E%3Cpath d='M22.5 12c-3-2-6-2-8 1-2-3-5-3-8-1 4 2 6 5 8 2 2 3 4 0 8-2z'/%3E%3C/svg%3E");
+        background-size: contain;
+        background-repeat: no-repeat;
+        opacity: 0.8;
+        width: 40px;
+        height: 40px;
+        filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
+        /* Initial position off-screen or subtly placed */
+        /* Transition for smoother stopping if desired, but direct mapping is more '1-to-1' with scroll */
+        transition: transform 0.1s linear; 
+        will-change: transform;
+    }
+
+    .bird-1 {
+        top: 15%;
+        left: -5%; /* Start slightly off-screen */
+        width: 50px;
+        height: 50px;
+        opacity: 0.6;
+    }
+
+    .bird-2 {
+        top: 35%;
+        left: -10%;
+        width: 35px;
+        height: 35px;
+        opacity: 0.5;
+    }
+
+    .bird-3 {
+        top: 65%;
+        left: -15%;
+        width: 60px;
+        height: 60px;
+        opacity: 0.4;
+    }
+</style>
+
+<script>
+    const birds = document.querySelectorAll('.bird');
+    
+    // throttle or just rAF for performance?
+    // Simple rAF loop is smoothest for scroll sync
+    let lastKnownScrollPosition = 0;
+    let ticking = false;
+
+    function updateBirds(scrollPos) {
+        birds.forEach((bird) => {
+            const speed = parseFloat(bird.getAttribute('data-speed') || '0.2');
+            const xPos = scrollPos * speed;
+            // Add a small rotation based on scroll for dynamic feel
+            const rotation = Math.sin(scrollPos * 0.005) * 5; 
+            
+            // We translate on X to simulate flying across
+            bird.style.transform = `translate3d(${xPos}px, 0, 0) rotate(${rotation}deg)`;
+        });
+    }
+
+    window.addEventListener('scroll', () => {
+        lastKnownScrollPosition = window.scrollY;
+
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                updateBirds(lastKnownScrollPosition);
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+</script>

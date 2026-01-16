@@ -1,0 +1,106 @@
+---
+const { lang } = Astro.props;
+import ScrollReveal from '../ui/ScrollReveal.astro';
+import Logo from '../ui/Logo.astro';
+
+const content = {
+  nl: {
+    cta: "Bekijk beschikbaarheid",
+    contact: "Contact & Locatie",
+    links: "Navigatie",
+    home: "Home",
+    accommodation: "Accommodatie",
+    surroundings: "Omgeving",
+    gallery: "Gallerij"
+  },
+  en: {
+    cta: "Check availability",
+    contact: "Contact & Location",
+    links: "Navigation",
+    home: "Home",
+    accommodation: "Accommodation",
+    surroundings: "Surroundings",
+    gallery: "Gallery"
+  },
+  de: {
+    cta: "Verfügbarkeit prüfen",
+    contact: "Kontakt & Lage",
+    links: "Navigation",
+    home: "Home",
+    accommodation: "Unterkunft",
+    surroundings: "Umgebung",
+    gallery: "Galerie"
+  }
+};
+
+const t = content[lang] || content.nl;
+---
+
+<!-- Footer Container -->
+<footer class="relative mt-48 text-white">
+  
+  <!-- Skyline Image SITTING ON TOP -->
+  <div class="absolute top-0 left-0 w-full -translate-y-[99%] z-10 leading-none pointer-events-none overflow-hidden h-[120px] md:h-[180px]">
+       <img 
+         src="/images/vlissingen-skyline-panorama.png" 
+         alt="Vlissingen Skyline" 
+         class="absolute bottom-0 left-1/2 -translate-x-1/2 h-full w-auto max-w-none"
+       />
+  </div>
+
+  <!-- Main Blue Block -->
+  <div class="bg-sea-blue pt-12 pb-12 relative z-20">
+      <div class="max-w-7xl mx-auto px-4">
+        
+        <ScrollReveal animation="fade-up" duration={1.2}>
+            
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-start mb-16 border-b border-white/10 pb-12">
+                
+                <!-- Brand Column -->
+                <div class="md:col-span-4 lg:col-span-5">
+                    <div class="w-32 mb-6">
+                        <Logo color="white" />
+                    </div>
+                    <p class="text-white/70 font-light leading-relaxed max-w-sm text-sm">
+                       Next to Sea.<br/>
+                       Singel 36, 4382 LB Vlissingen<br/>
+                       <a href="mailto:info@nexttosea.nl" class="hover:text-white transition-colors">info@nexttosea.nl</a>
+                    </p>
+                </div>
+
+                <!-- Links -->
+                <div class="md:col-span-4 lg:col-span-3">
+                    <h3 class="font-heading text-lg mb-6 text-white">{t.links}</h3>
+                    <ul class="space-y-3 font-light text-white/70 text-sm">
+                        <li><a href={`/${lang}/`} class="hover:text-white transition-colors">{t.home}</a></li>
+                        <!-- Use physical path names for all languages unless a router rewrite exists -->
+                        <li><a href={`/${lang}/accommodatie`} class="hover:text-white transition-colors">{t.accommodation}</a></li>
+                        <li><a href={`/${lang}/omgeving`} class="hover:text-white transition-colors">{t.surroundings}</a></li>
+                        <li><a href={`/${lang}/gallerij`} class="hover:text-white transition-colors">{t.gallery}</a></li>
+                    </ul>
+                </div>
+
+                <!-- CTA -->
+                <div class="md:col-span-4 lg:col-span-4 text-left md:text-right">
+                    <a 
+                        href={`/${lang}/contact`} 
+                        class="inline-block px-8 py-4 bg-white text-sea-blue font-bold uppercase tracking-widest text-xs hover:bg-stone-100 transition-colors rounded-sm shadow-xl"
+                    >
+                        {t.cta}
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Copyright -->
+            <div class="flex flex-col md:flex-row justify-between items-center text-xs text-white/40 font-light">
+                <span>&copy; {new Date().getFullYear()} Next to Sea</span>
+                <span class="flex items-center gap-1">
+                    Made by <a href="#" class="font-bold hover:text-white transition-colors">Zeezicht</a>
+                </span>
+            </div>
+
+        </ScrollReveal>
+      </div>
+  </div>
+</footer>

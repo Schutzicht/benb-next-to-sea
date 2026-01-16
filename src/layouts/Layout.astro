@@ -1,0 +1,72 @@
+---
+import { getLangFromUrl } from "../i18n/utils";
+import Navbar from "../components/common/Navbar.astro";
+import Footer from "../components/common/Footer.astro";
+import BirdsBackground from "../components/ui/BirdsBackground.astro";
+import { ClientRouter } from 'astro:transitions';
+import "../styles/global.css";
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+--- 
+
+<!doctype html>
+<html lang={lang} class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+        <ClientRouter />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+	</head>
+	<body class="font-body bg-stone-50 text-stone-800 antialiased flex flex-col min-h-screen relative">
+		<BirdsBackground />
+		<Navbar />
+		<main class="flex-grow z-10 relative">
+			<slot />
+		</main>
+		<Footer lang={lang} />
+		<!-- Sticky 'Book Now' Button (Mobile Only) -->
+		<div class="fixed bottom-0 left-0 w-full p-4 bg-white/90 backdrop-blur-md border-t border-stone-200 md:hidden z-50 flex justify-between items-center shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+			<div class="flex flex-col">
+				<span class="text-xs uppercase tracking-wider text-stone-500 font-semibold">{lang === 'nl' ? 'Vanaf' : (lang === 'de' ? 'Ab' : 'From')}</span>
+				<span class="text-xl font-heading font-bold text-sea-blue">€ 120,00</span>
+			</div>
+			<a href="/contact" class="bg-sea-blue hover:bg-sky-700 text-white font-bold py-2 px-6 rounded-full transition duration-300 shadow-md transform hover:scale-105">
+				{lang === 'nl' ? 'Nu Boeken' : (lang === 'de' ? 'Jetzt Buchen' : 'Book Now')}
+			</a>
+		</div>
+
+        <script>
+            import Lenis from 'lenis'
+
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                direction: 'vertical',
+                gestureDirection: 'vertical',
+                smooth: true,
+                mouseMultiplier: 1,
+                smoothTouch: false,
+                touchMultiplier: 2,
+            })
+
+            function raf(time) {
+                lenis.raf(time)
+                requestAnimationFrame(raf)
+            }
+
+            requestAnimationFrame(raf)
+        </script>
+	</body>
+</html>

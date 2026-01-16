@@ -1,0 +1,247 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ParallaxImage from '../../components/ui/ParallaxImage.astro';
+import ScrollReveal from '../../components/ui/ScrollReveal.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'nl' } },
+    { params: { lang: 'en' } },
+    { params: { lang: 'de' } },
+  ];
+}
+
+const { lang } = Astro.params;
+
+const content = {
+  nl: {
+    title: "Omgeving",
+    headline: "Ontdek Vlissingen & Zeeland",
+    description: "Vlissingen is een stad met een rauw randje, rijke maritieme geschiedenis en een unieke ligging aan de Westerschelde. Next to Sea vormt de ideale uitvalsbasis om niet alleen de stad, maar de hele provincie Zeeland te verkennen.",
+    labels: {
+      natuur: "Natuur",
+      cultuur: "Cultuur",
+      dining: "Eten & Drinken",
+      highlights: "Highlights"
+    },
+    spotsTitle: "Hotspots",
+    spots: [
+      { 
+        title: "Boulevard Vlissingen", 
+        desc: "De langste zeeboulevard van Nederland waar zeeschepen vlak langs de kust varen.", 
+        img: "/images/boulevard.jpg" 
+      },
+      { 
+        title: "Badstrand", 
+        desc: "Het populairste stadsstrand, perfect gelegen op het zuiden voor de meeste zonuren.", 
+        img: "/images/badstrand.jpg" 
+      },
+      { 
+        title: "Bellamypark", 
+        desc: "Het bruisende hart met terrassen, restaurants en evenementen.", 
+        img: "/images/bellamypark.jpg" 
+      }
+    ],
+    dining: [
+      { name: "De Gevangentoren", desc: "Dineren in een monumentale toren met 360° uitzicht over zee.", img: "/images/gevangentoren.jpg" },
+      { name: "Brasserie BLVD", desc: "Hip paviljoen op het strand met prachtig uitzicht.", img: "/images/brasserie_blvd.png" },
+      { name: "De Gecroonde Liefde", desc: "Sfeervol visrestaurant aan het Bellamypark.", img: "/images/gecroonde_liefde.jpg" },
+      { name: "De Timmerfabriek", desc: "Culinair genieten in een industrieel historisch pand.", img: "/images/timmerfabriek.jpg" },
+      { name: "La Bella Cucina", desc: "Authentieke Italiaanse keuken en delicatessen.", img: "/images/la_bella_cucina.jpg" }
+    ],
+    sights: [
+      { name: "MuZEEum", desc: "Maritiem museum in het prachtige Lampsinshuis.", img: "/images/muzeeum.jpg" },
+      { name: "Reptielenzoo Iguana", desc: "Grootste overdekte reptielenzoo van Europa.", img: "/images/iguana.jpg" },
+      { name: "Michiel de Ruyter", desc: "Het iconische standbeeld van de zeeheld op het Keizersbolwerk.", img: "/images/boulevard.jpg" },
+      { name: "De Oranjemolen", desc: "De enige molen in Nederland direct aan zee.", img: "/images/oranjemolen.jpg" },
+      { name: "Sint Jacobskerk", desc: "Oude Kerk uit de 14e eeuw, een baken in de stad.", img: "/images/sint_jacobskerk.jpg" }
+    ],
+    activities: [
+      { name: "Windorgel", desc: "Luister naar de klanken van de wind op de Nolledijk.", img: "/images/windorgel.jpg" },
+      { name: "Zonnetrein Zeeland", desc: "Ontdek Vlissingen en omgeving met deze elektrische trein.", img: "/images/zonnetrein.jpg" },
+      { name: "Nollestrand", desc: "Rustiger strand met de iconische slaaphuisjes.", img: "/images/duinen.jpg" },
+      { name: "CineCity", desc: "Bioscoop en locatie van filmfestival Film by the Sea.", img: "/images/dining_view.png" },
+      { name: "Wandelen in de Duinen", desc: "Prachtige wandelroutes door de duinen richting Dishoek.", img: "/images/duinen.jpg" }
+    ]
+  },
+  en: {
+    title: "Surroundings",
+    headline: "Discover Vlissingen & Zeeland",
+    description: "Vlissingen is a city with a raw edge, rich maritime history, and a unique location on the Westerschelde. Next to Sea is the ideal base for exploring not only the city but the entire province of Zeeland.",
+    labels: {
+      natuur: "Nature",
+      cultuur: "Culture",
+      dining: "Dining & Drinks",
+      highlights: "Highlights"
+    },
+    sectionTitleDining: "Culinary Delights",
+    sectionTitleSights: "Culture & Sightseeing",
+    sectionTitleAction: "Active & Nature",
+    spotsTitle: "Hotspots",
+    spots: [
+      { 
+        title: "Vlissingen Boulevard", 
+        desc: "The longest sea promenade in the Netherlands where sea ships sail right along the coast.", 
+        img: "/images/boulevard.jpg" 
+      },
+      { 
+        title: "Badstrand", 
+        desc: "The most popular urban beach, perfectly south-facing for the most sunshine hours.", 
+        img: "/images/badstrand.jpg" 
+      },
+      { 
+        title: "Bellamypark", 
+        desc: "The vibrant heart with terraces, restaurants, and events.", 
+        img: "/images/bellamypark.jpg" 
+      }
+    ],
+    dining: [
+      { name: "De Gevangentoren", desc: "Dining in a monumental tower with 360° views over the sea.", img: "/images/dining_view.png" },
+      { name: "Brasserie BLVD", desc: "Trendy pavilion on the beach with stunning views.", img: "/images/brasserie_blvd.png" },
+      { name: "De Gecroonde Liefde", desc: "Atmospheric seafood restaurant at Bellamypark.", img: "/images/gecroonde_liefde.jpg" },
+      { name: "De Timmerfabriek", desc: "Culinary enjoyment in an industrial historic building.", img: "/images/timmerfabriek.jpg" },
+      { name: "La Bella Cucina", desc: "Authentic Italian cuisine and delicacies.", img: "/images/la_bella_cucina.jpg" }
+    ],
+    sights: [
+      { name: "MuZEEum", desc: "Maritime museum in the beautiful Lampsins House.", img: "/images/museum.png" },
+      { name: "Reptile Zoo Iguana", desc: "Largest indoor reptile zoo in Europe.", img: "/images/museum.png" },
+      { name: "Michiel de Ruyter", desc: "The iconic statue of the naval hero on the Keizersbolwerk.", img: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/659346718.jpg?k=6beb5de73397d3f3562332a9f302d778ad3a07ffaba9871c801ce4b9a965ce20&o=" },
+      { name: "Oranjemolen", desc: "The only windmill in the Netherlands right by the sea.", img: "/images/oranjemolen.jpg" },
+      { name: "Saint Jacob's Church", desc: "Old Church from the 14th century, a beacon in the city.", img: "/images/sint_jacobskerk.png" }
+    ],
+    activities: [
+      { name: "Wind Organ", desc: "Listen to the sounds of the wind on the Nolledijk.", img: "/images/windorgel.jpg" },
+      { name: "Solar Train Zeeland", desc: "Discover Vlissingen and surroundings with this electric train.", img: "/images/zonnetrein.jpg" },
+      { name: "Nollestrand", desc: "Quieter beach with iconic sleeping houses.", img: "/images/duinen.jpg" },
+      { name: "CineCity", desc: "Cinema and location of Film by the Sea festival.", img: "/images/dining_view.png" },
+      { name: "Dune Walking", desc: "Beautiful walking routes through the dunes towards Dishoek.", img: "/images/duinen.jpg" }
+    ]
+  },
+  de: {
+    title: "Umgebung",
+    headline: "Entdecken Sie Vlissingen & Zeeland",
+    description: "Vlissingen ist eine Stadt mit rauem Charme, reicher maritimer Geschichte und einer einzigartigen Lage an der Westerschelde. Next to Sea ist der ideale Ausgangspunkt, um nicht nur die Stadt, sondern die gesamte Provinz Zeeland zu erkunden.",
+    labels: {
+      natuur: "Natur",
+      cultuur: "Kultur",
+      dining: "Essen & Trinken",
+      highlights: "Highlights"
+    },
+    sectionTitleDining: "Kulinarische Genüsse",
+    sectionTitleSights: "Kultur & Sehenswürdigkeiten",
+    sectionTitleAction: "Aktiv & Natur",
+    spotsTitle: "Hotspots",
+    spots: [
+      { 
+        title: "Boulevard Vlissingen", 
+        desc: "Die längste Meerespromenade der Niederlande, wo Seeschiffe direkt an der Küste vorbeifahren.", 
+        img: "/images/boulevard.jpg" 
+      },
+      { 
+        title: "Badstrand", 
+        desc: "Der beliebteste Stadtstrand, perfekt nach Süden ausgerichtet für die meisten Sonnenstunden.", 
+        img: "/images/badstrand.jpg" 
+      },
+      { 
+        title: "Bellamypark", 
+        desc: "Das pulsierende Herz mit Terrassen, Restaurants und Veranstaltungen.", 
+        img: "/images/bellamypark.jpg" 
+      }
+    ],
+    dining: [
+      { name: "De Gevangentoren", desc: "Dining in a monumental tower with 360° views over the sea.", img: "/images/gevangentoren.jpg" },
+      { name: "Brasserie BLVD", desc: "Trendy pavilion on the beach with stunning views.", img: "/images/brasserie_blvd.png" },
+      { name: "De Gecroonde Liefde", desc: "Atmospheric seafood restaurant at Bellamypark.", img: "/images/gecroonde_liefde.jpg" },
+      { name: "De Timmerfabriek", desc: "Culinary enjoyment in an industrial historic building.", img: "/images/timmerfabriek.jpg" },
+      { name: "La Bella Cucina", desc: "Authentic Italian cuisine and delicacies.", img: "/images/la_bella_cucina.jpg" }
+    ],
+    sights: [
+      { name: "MuZEEum", desc: "Maritime museum in the beautiful Lampsins House.", img: "/images/muzeeum.jpg" },
+      { name: "Reptile Zoo Iguana", desc: "Largest indoor reptile zoo in Europe.", img: "/images/iguana.jpg" },
+      { name: "Michiel de Ruyter", desc: "The iconic statue of the naval hero on the Keizersbolwerk.", img: "/images/boulevard.jpg" },
+      { name: "Oranjemolen", desc: "The only windmill in the Netherlands right by the sea.", img: "/images/oranjemolen.jpg" },
+      { name: "Saint Jacob's Church", desc: "Old Church from the 14th century, a beacon in the city.", img: "/images/sint_jacobskerk.jpg" }
+    ],
+    activities: [
+      { name: "Windorgel", desc: "Lauschen Sie den Klängen des Windes am Nolledijk.", img: "/images/windorgel.jpg" },
+      { name: "Zonnetrein Zeeland", desc: "Entdecken Sie Vlissingen und Umgebung mit diesem elektrischen Zug.", img: "/images/zonnetrein.jpg" },
+      { name: "Nollestrand", desc: "Ruhigerer Strand mit ikonischen Schlafhäuschen.", img: "/images/duinen.jpg" },
+      { name: "CineCity", desc: "Kino und Standort des Filmfestivals Film by the Sea.", img: "/images/dining_view.png" },
+      { name: "Dünenwanderung", desc: "Schöne Wanderrouten durch die Dünen Richtung Dishoek.", img: "/images/duinen.jpg" }
+    ]
+  }
+};
+
+const t = content[lang] || content.nl;
+
+// Categorized items with standardized labels
+const allItems = [
+    ...t.spots.map(s => ({ ...s, category: t.labels.highlights })), 
+    ...t.dining.map(s => ({ ...s, category: t.labels.dining })),
+    ...t.sights.map(s => ({ ...s, category: t.labels.cultuur })),
+    ...t.activities.map(s => ({ ...s, category: t.labels.natuur }))
+];
+---
+
+<Layout title={`Next to Sea - ${t.title}`} lang={lang}>
+  
+  <div class="relative bg-stone-50 py-32 text-center text-slate-800">
+      <ScrollReveal animation="fade-up">
+         <h1 class="font-heading text-5xl md:text-7xl font-light mb-8 text-sea-blue tracking-tight">{t.headline}</h1>
+         <p class="max-w-2xl mx-auto text-stone-600 text-xl font-light leading-relaxed">{t.description}</p>
+         <div class="w-24 h-[1px] bg-sea-blue/30 mx-auto mt-12"></div>
+      </ScrollReveal>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
+    
+    {/* Masonry Columns Layout */}
+    <div class="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+      
+      {allItems.map((item, index) => (
+        <div class="break-inside-avoid relative group mb-8">
+            <ScrollReveal animation="fade-up" delay={index % 3 * 0.1}>
+                <a href="#" class="block bg-white rounded-sm shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden transform group-hover:-translate-y-1">
+                    
+                    {/* Image handling - some could be taller */}
+                    <div class={`relative overflow-hidden w-full ${index % 5 === 0 ? 'aspect-[3/4]' : 'aspect-[4/3]'}`}>
+                        <ParallaxImage 
+                            src={item.img || '/hero.png'} 
+                            alt={item.name || item.title} 
+                            class="w-full h-full object-cover"
+                            height={index % 5 === 0 ? 'h-[120%]' : 'h-[120%]'}
+                        />
+                        
+                        {/* Overlay Gradient */}
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                        {/* Top Category Tag */}
+                        <div class="absolute top-4 left-4 z-10">
+                            <span class="inline-block bg-white/90 backdrop-blur text-sea-blue text-xs font-bold uppercase tracking-widest px-3 py-1 shadow-sm border border-stone-100">
+                                {item.type || item.category}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="p-8">
+                        <h3 class="font-heading text-2xl font-light text-slate-900 mb-3 group-hover:text-sea-blue transition-colors">
+                            {item.name || item.title}
+                        </h3>
+                        <p class="text-stone-500 text-sm leading-relaxed mb-4">
+                            {item.desc}
+                        </p>
+                        <div class="flex items-center text-xs font-bold uppercase tracking-widest text-sea-blue opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                            {lang === 'nl' ? 'Ontdekken' : 'Discover'}
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </div>
+                    </div>
+                </a>
+            </ScrollReveal>
+        </div>
+      ))}
+
+    </div>
+  </div>
+</Layout>

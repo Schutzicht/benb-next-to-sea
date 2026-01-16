@@ -1,0 +1,124 @@
+---
+import ScrollReveal from '../ui/ScrollReveal.astro';
+import ParallaxImage from '../ui/ParallaxImage.astro';
+
+const { lang } = Astro.props;
+
+const content = {
+  nl: {
+    features: [
+      {
+        title: "Op loopafstand van strand & zee",
+        desc: "Binnen 6 minuten staat u met uw voeten in het zand. Geniet van de unieke ligging aan de enige zuidboulevard van Nederland, waar enorme zeeschepen vlak langs de kust varen.",
+        img: "/images/vlissingen_beach_premium.jpg",
+        stat: "6 min lopen"
+      },
+      {
+        title: "Luxe comfort & Privé tuin",
+        desc: "Uw eigen oase van rust. Na een dag aan het strand geniet u na in de beschutte privétuin. Het appartement is ingericht met oog voor detail en voorzien van alle moderne gemakken, inclusief gratis high-speed WiFi.",
+        img: "GARDEN_PLACEHOLDER",
+        stat: "Privé Tuin"
+      },
+      {
+        title: "Toplocatie in Vlissingen",
+        desc: "Gelegen in een rustige wijk, maar om de hoek van de bruisende boulevard en het stadscentrum. Gratis parkeren is mogelijk in de directe omgeving.",
+        img: "/images/boulevard.jpg",
+        stat: "9.1/10 Score"
+      }
+    ]
+  },
+  en: {
+    features: [
+      {
+        title: "Walking distance to beach & sea",
+        desc: "Within 6 minutes you can feel the sand between your toes. Enjoy the unique location on the Netherlands' only south-facing boulevard, where huge sea ships sail right along the coast.",
+        img: "/images/vlissingen_beach_premium.jpg",
+        stat: "6 min walk"
+      },
+      {
+        title: "Luxury comfort & Private garden",
+        desc: "Your own oasis of peace. After a day at the beach, relax in the sheltered private garden. The apartment is furnished with an eye for detail and equipped with all modern conveniences, including free high-speed WiFi.",
+        img: "GARDEN_PLACEHOLDER",
+        stat: "Private Garden"
+      },
+      {
+        title: "Top location in Vlissingen",
+        desc: "Located in a quiet neighborhood, yet just around the corner from the bustling boulevard and city center. Free parking is available in the immediate vicinity.",
+        img: "/images/boulevard.jpg",
+        stat: "9.1/10 Score"
+      }
+    ]
+  },
+  de: {
+    features: [
+      {
+        title: "Zu Fuß zum Strand & Meer",
+        desc: "Innerhalb von 6 Minuten spüren Sie den Sand zwischen Ihren Zehen. Genießen Sie die einzigartige Lage an der einzigen Südboulevard der Niederlande, wo riesige Seeschiffe direkt an der Küste vorbeifahren.",
+        img: "/images/vlissingen_beach_premium.jpg",
+        stat: "6 Min Gehweg"
+      },
+      {
+        title: "Luxuskomfort & Privater Garten",
+        desc: "Ihre eigene Oase der Ruhe. Nach einem Strandtag entspannen Sie im geschützten privaten Garten. Das Apartment ist mit Liebe zum Detail eingerichtet und mit allen modernen Annehmlichkeiten ausgestattet, einschließlich kostenlosem Highspeed-WLAN.",
+        img: "GARDEN_PLACEHOLDER",
+        stat: "Privater Garten"
+      },
+      {
+        title: "Top-Lage in Vlissingen",
+        desc: "In einem ruhigen Viertel gelegen, aber gleich um die Ecke vom belebten Boulevard und dem Stadtzentrum. Kostenlose Parkplätze sind in unmittelbarer Nähe verfügbar.",
+        img: "/images/boulevard.jpg",
+        stat: "9.1/10 Bewertung"
+      }
+    ]
+  }
+};
+
+const t = content[lang] || content.nl;
+---
+
+<section class="py-24 bg-white overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    {t.features.map((feature, index) => (
+      <div class={`flex flex-col md:flex-row items-center gap-12 md:gap-24 mb-32 last:mb-0 ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
+        
+        <!-- Image Side -->
+        <div class="w-full md:w-1/2 relative group">
+           <ScrollReveal animation={index % 2 === 0 ? 'slide-left' : 'slide-right'} duration={1.2}>
+               <div class="relative overflow-hidden rounded-sm aspect-[4/3] md:aspect-[3/4] lg:aspect-[4/3]">
+                  <ParallaxImage 
+                    src={feature.img === 'GARDEN_PLACEHOLDER' ? '/images/tranquil-dunes.png' : feature.img} 
+                    alt={feature.title} 
+                    class="h-full w-full object-cover"
+                  />
+                  <!-- Stat Badge overlay -->
+                  <div class="absolute top-6 left-6 bg-white/90 backdrop-blur-md px-4 py-2 text-sea-blue font-heading font-bold shadow-lg z-10 border border-white/20">
+                    {feature.stat}
+                  </div>
+               </div>
+           </ScrollReveal>
+        </div>
+
+        <!-- Text Side -->
+        <div class="w-full md:w-1/2">
+           <ScrollReveal animation="fade-up" delay={0.3}>
+               <div class="w-16 h-[2px] bg-dune-sand mb-6"></div>
+               <h3 class="text-3xl md:text-5xl font-heading font-light text-slate-900 mb-6 leading-tight">
+                 {feature.title}
+               </h3>
+               <p class="text-lg text-slate-600 font-light leading-relaxed mb-8 max-w-lg">
+                 {feature.desc}
+               </p>
+               <div class="flex items-center text-sm font-bold uppercase tracking-widest text-sea-blue group cursor-pointer">
+                  <span class="border-b border-sea-blue pb-1">
+                      {lang === 'nl' ? 'Ontdek meer' : lang === 'de' ? 'Mehr entdecken' : 'Discover more'}
+                  </span>
+               </div>
+           </ScrollReveal>
+        </div>
+
+      </div>
+    ))}
+
+  </div>
+</section>

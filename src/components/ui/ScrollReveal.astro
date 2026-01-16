@@ -1,0 +1,102 @@
+---
+interface Props {
+  animation?: 'fade-up' | 'fade-in' | 'slide-left' | 'slide-right' | 'scale-up';
+  duration?: number;
+  delay?: number;
+  threshold?: number;
+  class?: string;
+}
+
+const { 
+  animation = 'fade-up', 
+  duration = 0.8, 
+  delay = 0, 
+  threshold = 0.1,
+  class: className = '' 
+} = Astro.props;
+---
+
+<div 
+  class:list={['reveal-container opacity-0', className]}
+  data-animation={animation}
+  data-duration={duration}
+  data-delay={delay}
+  data-threshold={threshold}
+>
+  <slot />
+</div>
+
+<script>
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1 // Default, will be overridden by data attribute
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target as HTMLElement;
+        const animation = el.dataset.animation;
+        const duration = el.dataset.duration || '0.8';
+        const delay = el.dataset.delay || '0';
+
+        el.style.transition = `all ${duration}s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s`;
+        el.classList.remove('opacity-0');
+        el.classList.add('reveal-visible');
+        
+        // Stop observing once revealed
+        observer.unobserve(el);
+      }
+    });
+  }, observerOptions); // We might need dynamic thresholds per element, simpler to just observe all
+
+  document.addEventListener('astro:page-load', () => {
+    // Re-run on navigation
+    document.querySelectorAll('.reveal-container').forEach(el => {
+        // Reset state if strictly needed for re-entry, but astro transitions might handle it.
+        // Actually, for "page load" we just start observing.
+        observer.observe(el);
+    });
+  });
+  
+  // Initial load
+  document.querySelectorAll('.reveal-container').forEach(el => {
+    observer.observe(el);
+  });
+</script>
+
+<style>
+  .reveal-container {
+    will-change: transform, opacity;
+  }
+
+  /* Fade Up */
+  [data-animation="fade-up"] {
+    transform: translateY(40px);
+  }
+  [data-animation="fade-up"].reveal-visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  /* Fade In */
+  [data-animation="fade-in"] {
+    transform: scale(0.98);
+  }
+  [data-animation="fade-in"].reveal-visible {
+    transform: scale(1);
+    opacity: 1;
+  }
+  
+  /* Scale Up */
+  [data-animation="scale-up"] {
+    transform: scale(1.1);
+    filter: blur(10px);
+  }
+  [data-animation="scale-up"].reveal-visible {
+    transform: scale(1);
+    filter: blur(0);
+    opacity: 1;
+  }
+</style>

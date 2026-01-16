@@ -1,0 +1,78 @@
+---
+import ScrollReveal from '../ui/ScrollReveal.astro';
+import ParallaxImage from '../ui/ParallaxImage.astro';
+
+const { lang } = Astro.props;
+
+const content = {
+  nl: {
+    title: "Rust & Ruimte",
+    desc: "Next to Sea is meer dan een verblijf. Het is een plek waar de tijd vertraagt. Gelegen op slechts enkele minuten van het strand, biedt ons appartement een oase van rust, luxe en privacy. Of u nu komt voor de eindeloze horizon of de bruisende boulevard, hier vindt u uw thuishaven.",
+    stat1: "6 min lopen",
+    stat1Label: "Naar het strand",
+    stat2: "Privé tuin",
+    stat2Label: "Volledige privacy"
+  },
+  en: {
+    title: "Peace & Space",
+    desc: "Next to Sea is more than a stay. It is a place where time slows down. Located just minutes from the beach, our apartment offers an oasis of calm, luxury, and privacy. Whether you come for the endless horizon or the bustling promenade, here you will find your home port.",
+    stat1: "6 min walk",
+    stat1Label: "To the beach",
+    stat2: "Private garden",
+    stat2Label: "Full privacy"
+  },
+  de: {
+    title: "Ruhe & Raum",
+    desc: "Next to Sea ist mehr als nur ein Aufenthalt. Es ist ein Ort, an dem die Zeit langsamer vergeht. Nur wenige Minuten vom Strand entfernt, bietet unser Apartment eine Oase der Ruhe, des Luxus und der Privatsphäre. Ob Sie wegen des endlosen Horizonts oder der belebten Promenade kommen, hier finden Sie Ihren Heimathafen.",
+    stat1: "6 Min Gehweg",
+    stat1Label: "Zum Strand",
+    stat2: "Privater Garten",
+    stat2Label: "Volle Privatsphäre"
+  }
+};
+
+const t = content[lang] || content.nl;
+---
+
+<section class="py-32 px-4 bg-stone-50 overflow-hidden">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
+      
+      <!-- Text Column (Editorial Style) -->
+      <div class="lg:col-span-5 order-2 lg:order-1 relative">
+        <ScrollReveal animation="fade-up" duration={1}>
+            <div class="w-12 h-1 bg-sea-blue mb-8"></div>
+            <h2 class="text-4xl md:text-5xl font-heading font-light text-slate-900 mb-8 leading-tight">
+              {t.title}
+            </h2>
+            <p class="text-lg md:text-xl text-stone-600 leading-relaxed font-light mb-12">
+              {t.desc}
+            </p>
+            
+            <div class="flex gap-12 border-t border-stone-200 pt-8">
+                <div>
+                    <div class="text-3xl font-heading font-light text-sea-blue mb-1">{t.stat1}</div>
+                    <div class="text-xs uppercase tracking-widest text-stone-400">{t.stat1Label}</div>
+                </div>
+                <div>
+                    <div class="text-3xl font-heading font-light text-sea-blue mb-1">{t.stat2}</div>
+                    <div class="text-xs uppercase tracking-widest text-stone-400">{t.stat2Label}</div>
+                </div>
+            </div>
+        </ScrollReveal>
+      </div>
+
+      <div class="lg:col-span-7 order-1 lg:order-2">
+         <div class="relative pl-0 lg:pl-12">
+            <ParallaxImage 
+               src="/images/aerial-vlissingen.jpg" 
+               alt="Rust en Ruimte" 
+               height="h-[600px] md:h-[700px]" 
+               class="rounded-none shadow-2xl"
+            />
+         </div>
+      </div>
+
+    </div>
+  </div>
+</section>

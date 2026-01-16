@@ -1,0 +1,60 @@
+---
+const { lang } = Astro.props;
+import Logo from '../ui/Logo.astro';
+
+const navItems = {
+  nl: [
+    { name: 'Home', href: '/nl' },
+    { name: 'Accommodatie', href: '/nl/accommodatie' },
+    { name: 'Omgeving', href: '/nl/omgeving' },
+    { name: 'Gallerij', href: '/nl/gallerij' },
+    { name: 'Contact', href: '/nl/contact' },
+  ],
+  en: [
+    { name: 'Home', href: '/en' },
+    { name: 'Accommodation', href: '/en/accommodation' },
+    { name: 'Surroundings', href: '/en/surroundings' },
+    { name: 'Gallery', href: '/en/gallery' },
+    { name: 'Contact', href: '/en/contact' },
+  ],
+  de: [
+    { name: 'Start', href: '/de' },
+    { name: 'Unterkunft', href: '/de/unterkunft' },
+    { name: 'Umgebung', href: '/de/umgebung' },
+    { name: 'Galerie', href: '/de/galerie' },
+    { name: 'Kontakt', href: '/de/kontakt' },
+  ]
+};
+
+const currentNav = navItems[lang] || navItems.nl;
+---
+
+<nav class="bg-foam-white/90 backdrop-blur-md shadow-sm fixed w-full z-50 transition-all duration-300 border-b border-dune-sand/30">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-20 items-center">
+      <div class="flex-shrink-0 flex items-center">
+        <Logo class="text-sea-blue hover:text-sky-700 transition-colors" />
+      </div>
+      <div class="hidden md:ml-6 md:flex md:space-x-8">
+        {currentNav.map((item) => (
+          <a
+            href={item.href}
+            class="text-slate-600 hover:text-sea-blue px-3 py-2 text-sm font-bold transition-colors duration-200 relative group"
+          >
+            {item.name}
+             <span class="absolute bottom-0 left-0 w-full h-0.5 bg-dune-sand transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+          </a>
+        ))}
+      </div>
+      <div class="flex items-center space-x-4">
+        <a href="/nl" class={`text-sm font-semibold transition-colors ${lang === 'nl' ? 'text-sea-blue' : 'text-slate-400 hover:text-sea-blue'}`}>NL</a>
+        <span class="text-dune-sand">|</span>
+        <a href="/en" class={`text-sm font-semibold transition-colors ${lang === 'en' ? 'text-sea-blue' : 'text-slate-400 hover:text-sea-blue'}`}>EN</a>
+        <span class="text-dune-sand">|</span>
+        <a href="/de" class={`text-sm font-semibold transition-colors ${lang === 'de' ? 'text-sea-blue' : 'text-slate-400 hover:text-sea-blue'}`}>DE</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="h-20"></div> <!-- Spacer -->

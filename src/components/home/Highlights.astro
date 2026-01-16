@@ -1,0 +1,46 @@
+---
+const { lang } = Astro.props;
+import Icon from '../ui/Icon.astro';
+
+const features = [
+  {
+    icon: "wave",
+    title: { nl: "Dichtbij Strand", en: "Close to Beach", de: "Strandnah" },
+    desc: { nl: "Slechts 6 minuten lopen", en: "Only 6 minutes walk", de: "Nur 6 Gehminuten" }
+  },
+  {
+    icon: "wifi",
+    title: { nl: "Gratis WiFi", en: "Free WiFi", de: "Kostenloses WLAN" },
+    desc: { nl: "Snel internet beschikbaar", en: "High-speed internet", de: "Schnelles Internet" }
+  },
+  {
+    icon: "location", // Using location icon
+    title: { nl: "Top Locatie", en: "Top Location", de: "Top Lage" },
+    desc: { nl: "Score: 9.1/10", en: "Score: 9.1/10", de: "Bewertung: 9.1/10" }
+  },
+  {
+    icon: "leaf", // Using leaf/garden icon
+    title: { nl: "Privé Tuin", en: "Private Garden", de: "Privater Garten" },
+    desc: { nl: "Ontspan in rust", en: "Relax in peace", de: "Entspannen Sie in Ruhe" }
+  }
+];
+---
+
+<section class="py-20 bg-foam-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {features.map((feature) => (
+        <div class="text-center p-8 rounded-2xl bg-white hover:bg-white hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-dune-sand/30 group">
+          <div class="text-sea-blue mb-6 flex justify-center transform group-hover:scale-110 transition-transform duration-300">
+            <div class="p-4 bg-foam-white rounded-full border border-sea-blue/10">
+               <!-- @ts-ignore -->
+              <Icon name={feature.icon} class="w-8 h-8" />
+            </div>
+          </div>
+          <h3 class="font-heading text-lg font-bold mb-3 text-sea-blue">{feature.title[lang] || feature.title.nl}</h3>
+          <p class="text-slate-500 font-body leading-relaxed">{feature.desc[lang] || feature.desc.nl}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

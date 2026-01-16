@@ -1,0 +1,187 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ScrollReveal from '../../components/ui/ScrollReveal.astro';
+import ParallaxImage from '../../components/ui/ParallaxImage.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'nl' } },
+    { params: { lang: 'en' } },
+    { params: { lang: 'de' } },
+  ];
+}
+
+const { lang } = Astro.params;
+
+const title = {
+  nl: "Gallerij",
+  en: "Gallery",
+  de: "Galerie"
+};
+
+const subtitle = {
+  nl: "Een impressie van sfeer en omgeving",
+  en: "An impression of atmosphere and surroundings",
+  de: "Ein Eindruck von Atmosphäre und Umgebung"
+};
+
+const images = [
+  "https://cf.bstatic.com/xdata/images/hotel/max1024x768/541373786.jpg?k=2e1ac3438c7e80b3fd284d6dff7e2c23c09258cd30dae00ecee2e34804497a21&o=",
+  "https://cf.bstatic.com/xdata/images/hotel/max1024x768/659346718.jpg?k=6beb5de73397d3f3562332a9f302d778ad3a07ffaba9871c801ce4b9a965ce20&o=",
+  "https://cf.bstatic.com/xdata/images/hotel/max1024x768/540813084.jpg?k=2a209503c8f906be2f693d8534aa1ec7df7dcebd5a467d71c7b02ffc264d353c&o=",
+  "https://cf.bstatic.com/xdata/images/hotel/max1024x768/390790560.jpg?k=fb2dfc20fdde0d50d7ae9cb2cb7c8c81bfecb666930518a61b850d44bb9b0bc2&o=",
+  "https://cf.bstatic.com/xdata/images/hotel/max1024x768/474084982.jpg?k=5907eb8ff10fd347652eea8c5106b1494111fc5ac00232433acd906dda37e86d&o=",
+  "https://cf.bstatic.com/xdata/images/hotel/max1024x768/541373823.jpg?k=9c75ece3843c3736113af494c596ec142e563c0e0f5ea84fd6626bc0bfd8957e&o=",
+  "https://cf.bstatic.com/xdata/images/hotel/max1024x768/540822989.jpg?k=96b9253452d46560b6e8e366654d0a0e5be9d1d3fd831e60e009fce8e5b3702d&o=",
+  "https://cf.bstatic.com/xdata/images/hotel/max1024x768/390796359.jpg?k=8eccd6e5675b05f26e44ded8482efb456092aa70f3415cfdcb4b0b6cdfe87709&o=",
+  "https://cf.bstatic.com/xdata/images/hotel/max1024x768/474084950.jpg?k=10c600ce9922451332384e2e9f358c111d52cf81b68068ea10959bd99b2d6765&o=",
+  "https://cf.bstatic.com/xdata/images/hotel/max300/541373738.jpg?k=a81b9a72f9c874b1068fd106e25b3ae116219fe65140ad97f76f73bc15c51901&o=",
+  "https://cf.bstatic.com/xdata/images/hotel/max300/474084999.jpg?k=09925acd6919289e79f110874fb14caf35a013ad64911af5e84499c6b7177a3a&o=",
+  "https://cf.bstatic.com/xdata/images/hotel/max300/474085011.jpg?k=0f951405c699e2ace7fda9552064374ee3611a8e711bb6e2be588b679fc34b9a&o=",
+  "https://cf.bstatic.com/xdata/images/hotel/max300/474085008.jpg?k=30594c8fd58b6da51a241cedfc7746285248ec4c61f38d86ffaa6fac7e2c7e45&o=",
+  "https://cf.bstatic.com/xdata/images/hotel/max300/474085005.jpg?k=9611ebc067e0fe77cf23179057cacdd4374eb22b5ee95e4d6f52f042d61ed6a6&o=",
+  "https://cf.bstatic.com/xdata/images/hotel/max300/474084972.jpg?k=35e8dee7642c7ab6ca66d98f16d24eb805e4b7f8a82dbf0027339b65390d0464&o=",
+  "https://cf.bstatic.com/xdata/images/hotel/max300/474084988.jpg?k=d18bd546d17a7deb26b5651782311a359750e62ae7cf24cba8350a1004413d3a&o="
+];
+---
+
+<Layout title={`Next to Sea - ${title[lang]}`} lang={lang}>
+  
+  <div class="relative bg-stone-50 py-32 text-center text-slate-800">
+      <ScrollReveal animation="fade-up">
+         <h1 class="font-heading text-5xl md:text-7xl font-light mb-8 text-sea-blue tracking-tight">{title[lang]}</h1>
+         <p class="max-w-2xl mx-auto text-stone-600 text-xl font-light leading-relaxed italic">{subtitle[lang]}</p>
+         <div class="w-16 h-[1px] bg-sea-blue/30 mx-auto mt-12"></div>
+      </ScrollReveal>
+  </div>
+
+  <div class="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8 pb-32">
+    <!-- Masonry Layout using CSS columns -->
+    <div class="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-4 md:gap-8 space-y-4 md:space-y-8">
+      {images.map((img, index) => (
+        <div class="break-inside-avoid relative group cursor-pointer" onclick={`openLightbox(${index})`}>
+          <ScrollReveal animation="fade-up" delay={(index % 4) * 0.05}>
+             <div class="relative overflow-hidden rounded-sm bg-stone-200">
+                <!-- Using ParallaxImage for subtle movement within the grid could be heavy with many images, 
+                     so standardized on distinct hover effect instead for gallery performance. -->
+                <img 
+                  src={img} 
+                  alt={`Gallery image ${index + 1}`} 
+                  class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+                
+                {/* Overlay on hover */}
+                <div class="absolute inset-0 bg-sea-blue/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                {/* Search/Zoom Icon on hover */}
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform scale-90 group-hover:scale-100 delay-100">
+                    <div class="bg-white/90 p-4 rounded-full shadow-xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sea-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                        </svg>
+                    </div>
+                </div>
+             </div>
+          </ScrollReveal>
+        </div>
+      ))}
+    </div>
+  </div>
+</Layout>
+
+<!-- Enhanced Lightbox Implementation -->
+<dialog id="lightbox" class="backdrop:bg-black/95 bg-transparent p-0 overflow-hidden w-full h-full max-w-full max-h-full m-0 focus:outline-none">
+  <div class="relative w-screen h-screen flex items-center justify-center group select-none">
+    
+    <!-- Close Button -->
+    <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white/70 hover:text-white z-50 p-2 rounded-full transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <!-- Previous Button -->
+    <button onclick="prevImage()" class="absolute left-6 text-white/50 hover:text-white hover:bg-white/10 z-50 p-4 rounded-full transition-all hidden md:block">
+       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12">
+         <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+       </svg>
+    </button>
+
+    <!-- Image Container with animation -->
+    <div class="relative max-w-[90vw] max-h-[90vh]">
+        <img id="lightbox-img" src="" alt="Zoom" class="max-w-full max-h-[90vh] object-contain shadow-2xl rounded-sm scale-95 opacity-0 transition-all duration-500 ease-out" />
+        <div id="lightbox-caption" class="absolute bottom-0 left-0 right-0 text-center text-white/80 font-heading text-sm py-4 translate-y-full"></div>
+    </div>
+
+    <!-- Next Button -->
+    <button onclick="nextImage()" class="absolute right-6 text-white/50 hover:text-white hover:bg-white/10 z-50 p-4 rounded-full transition-all hidden md:block">
+       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12">
+         <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+       </svg>
+    </button>
+
+  </div>
+</dialog>
+
+<script define:vars={{ images }}>
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  let currentIndex = 0;
+
+  window.openLightbox = (index) => {
+    currentIndex = index;
+    updateImage();
+    lightbox.showModal();
+    requestAnimationFrame(() => {
+      lightboxImg.classList.remove('scale-95', 'opacity-0');
+      lightboxImg.classList.add('scale-100', 'opacity-100');
+    });
+    document.body.style.overflow = 'hidden'; 
+  };
+
+  window.closeLightbox = () => {
+    lightboxImg.classList.remove('scale-100', 'opacity-100');
+    lightboxImg.classList.add('scale-95', 'opacity-0');
+    setTimeout(() => {
+        lightbox.close();
+        document.body.style.overflow = '';
+    }, 300);
+  };
+
+  window.updateImage = () => {
+    lightboxImg.style.opacity = '0.5';
+    // Small timeout to create a slight transition effect between images
+    setTimeout(() => {
+        lightboxImg.src = images[currentIndex];
+        lightboxImg.onload = () => {
+            lightboxImg.style.opacity = '1';
+        };
+    }, 150);
+  };
+
+  window.nextImage = (e) => {
+    if(e) e.stopPropagation();
+    currentIndex = (currentIndex + 1) % images.length;
+    updateImage();
+  };
+
+  window.prevImage = (e) => {
+    if(e) e.stopPropagation();
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    updateImage();
+  };
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox || e.target.closest('.group') === e.target) {
+        closeLightbox();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.open) return;
+    if (e.key === 'ArrowRight') nextImage();
+    if (e.key === 'ArrowLeft') prevImage();
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>

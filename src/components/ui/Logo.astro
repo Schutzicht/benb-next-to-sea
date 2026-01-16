@@ -1,0 +1,22 @@
+---
+const { class: className = "" } = Astro.props;
+---
+<a href="/" class={`group flex items-center gap-3 decoration-none ${className}`}>
+  <!-- Artistic Logo Icon -->
+  <div class="relative w-10 h-10 overflow-hidden rounded-full border-2 border-sea-blue bg-white flex items-center justify-center p-0.5 shadow-sm group-hover:shadow-md transition-shadow duration-300">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-full h-full text-sea-blue" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+       <!-- Sun rays at top -->
+       <path d="M50 20 V10 M71.2 28.8 L78.3 21.7 M80 50 H90 M28.8 28.8 L21.7 21.7 M20 50 H10" class="opacity-70" />
+       <!-- Sun body (half) -->
+       <path d="M75 55 A 25 25 0 0 0 25 55" />
+       <!-- Waves at bottom -->
+       <path d="M15 65 Q 30 55 50 65 T 85 65" stroke-width="6" />
+       <path d="M15 80 Q 30 70 50 80 T 85 80" stroke-width="6" class="text-dune-sand opacity-80" />
+    </svg>
+  </div>
+  
+  <div class="flex flex-col">
+    <span class="font-heading font-bold text-xl leading-none tracking-tight text-sea-blue group-hover:text-sky-700 transition-colors">Next to Sea</span>
+    <span class="font-body text-[0.6rem] uppercase tracking-widest text-sea-blue/70 font-bold">Vlissingen</span>
+  </div>
+</a>

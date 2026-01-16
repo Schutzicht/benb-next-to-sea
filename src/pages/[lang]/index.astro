@@ -1,0 +1,76 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/home/Hero.astro';
+import EditorialIntro from '../../components/home/EditorialIntro.astro';
+import FeatureRows from '../../components/home/FeatureRows.astro';
+import ScrollReveal from '../../components/ui/ScrollReveal.astro';
+import ParallaxImage from '../../components/ui/ParallaxImage.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'nl' } },
+    { params: { lang: 'en' } },
+    { params: { lang: 'de' } },
+  ];
+}
+
+const { lang } = Astro.params;
+
+const title = {
+  nl: "Next to Sea - Luxury Stay",
+  en: "Next to Sea - Luxury Stay",
+  de: "Next to Sea - Luxusaufenthalt"
+};
+---
+
+<Layout title={title[lang]} lang={lang}>
+  
+  <Hero lang={lang} />
+  
+  <EditorialIntro lang={lang} />
+  
+  <FeatureRows lang={lang} />
+
+  <!-- Host Section: Premium "Floating" Design -->
+  <section class="py-24 bg-stone-50 relative overflow-hidden">
+     <div class="max-w-5xl mx-auto px-4 relative z-10">
+        <div class="flex flex-col md:flex-row items-center gap-12 md:gap-16">
+            <!-- Floating Image -->
+            <div class="w-full md:w-5/12 relative">
+                <ScrollReveal animation="fade-up" duration={1.2}>
+                    <div class="relative aspect-[3/4] max-w-sm mx-auto md:mx-0 shadow-xl rounded-sm overflow-hidden">
+                        <img 
+                            src="/images/dunes.png" 
+                            alt="Sabine - Uw Gastvrouw (Foto volgt)" 
+                            class="w-full h-full object-cover scale-105 hover:scale-100 transition-transform duration-1000"
+                        />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                        <div class="absolute bottom-8 left-8 text-white">
+                            <div class="font-heading text-3xl">Sabine</div>
+                            <div class="text-sm uppercase tracking-widest opacity-80">{lang === 'nl' ? 'Uw Gastvrouw' : 'Your Host'}</div>
+                        </div>
+                    </div>
+                </ScrollReveal>
+                <!-- Decorative element behind -->
+                <div class="absolute -top-10 -left-10 w-full h-full border border-sea-blue/10 -z-10 hidden md:block"></div>
+            </div>
+
+            <!-- Text Content -->
+            <div class="w-full md:w-1/2">
+                <ScrollReveal animation="fade-up" delay={0.3}>
+                    <h2 class="text-4xl md:text-6xl font-heading font-light text-slate-900 mb-8">
+                        {lang === 'nl' ? 'Welkom in Vlissingen' : lang === 'de' ? 'Willkommen in Vlissingen' : 'Welcome to Vlissingen'}
+                    </h2>
+                    <p class="text-xl text-stone-600 font-light leading-relaxed mb-8 italic">
+                        "{lang === 'nl' ? 'Ik zorg er persoonlijk voor dat het u aan niets ontbreekt. Met mijn liefde voor Vlissingen geef ik u graag de beste tips voor een onvergetelijk verblijf aan zee.' : 
+                        lang === 'de' ? 'Ich sorge persönlich dafür, dass es Ihnen an nichts fehlt. Mit meiner Liebe zu Vlissingen gebe ich Ihnen gerne die besten Tipps für einen unvergesslichen Aufenthalt am Meer.' : 
+                        'I personally ensure that you have everything you need. With my love for Vlissingen, I am happy to give you the best tips for an unforgettable stay by the sea.'}"
+                    </p>
+                    <div class="w-24 h-[1px] bg-sea-blue/30"></div>
+                </ScrollReveal>
+            </div>
+        </div>
+     </div>
+  </section>
+
+</Layout>
